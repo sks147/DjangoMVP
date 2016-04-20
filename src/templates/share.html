@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block jquery %}
+// alert("Hello");
+//$(".progress-bar").css("width", "80%").attr("aria-valuenow", "80").text("80%");
+
+//change count to display it on the share page
+$signUpCount = {{count}};
+
+function completeBlock(progressBarId){
+	$(progressBarId).css("width", "100%").attr("aria-valuenow", "100%").text("Completed");
+}
+
+function setNewPercent(progressBarId, percentNum, newText){
+	$(progressBarId).css("width", percentNum+"%").attr("aria-valuenow", percentNum).text(newText);
+}
+
+	if($signUpCount == 0){
+
+	}
+	else if($signUpCount>0 && $signUpCount < 5){
+		$newPercent = $signUpCount/5 * 100;
+
+		setNewPercent("#count5", $newPercent, "Friends : " +$signUpCount)
+
+		//$("#count5").css("width", $newPercent+"%").attr("aria-valuenow", "$newPercent").text($newPercent+"%");
+	} 
+	else if($signUpCount>=5 && $signUpCount < 10)
+	{
+		completeBlock("#count5");
+	
+		$newCount = $signUpCount - 5;
+		$newPercent = $newCount/5 * 100;
+		setNewPercent("#count10", $newPercent, "Friends : " +$signUpCount)
+
+		//$("#count10").css("width", $newPercent+"%").attr("aria-valuenow", "$newPercent").text($newPercent+"%");
+	}
+	else if ($signUpCount>=10 && $signUpCount < 20)
+	{
+		completeBlock("#count5");
+		completeBlock("#count10");
+
+		$newCount = $signUpCount - 10;
+		$newPercent = $newCount/10 * 100;
+		
+		setNewPercent("#count20", $newPercent, "Friends : " +$signUpCount)
+		//$("#count20").css("width", $newPercent+"%").attr("aria-valuenow", "$newPercent").text($newPercent+"%");
+	}
+	else if ($signUpCount>=20 && $signUpCount < 30)
+	{
+		completeBlock("#count5");
+		completeBlock("#count10");
+		completeBlock("#count20");
+	
+		$newCount = $signUpCount - 20;
+		$newPercent = $newCount/10 * 100;
+		
+		setNewPercent("#count30", $newPercent, "Friends : " +$signUpCount)
+		//$("#count30").css("width", $newPercent+"%").attr("aria-valuenow", "$newPercent").text($newPercent+"%");
+	}
+	else
+	{
+		completeBlock("#count5");
+		completeBlock("#count10");
+		completeBlock("#count20");
+		completeBlock("#count30");
+	}
+
+{% endblock%}
+
+
+
+
+{% block content %}
+
+{% include "navbar.html"%}
+
+ <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">  	
+      <div class='row'>
+        <div class='col-md-7 pull-right' style="text-align:center">
+        <i class="fa fa-paper-plane fa-5x" ></i>
+          <h1 >Invite Friends &amp; get a chance to meet <em><b>Salman Khan</b></em></h1>
+          <h3>Donate your Old books and Study Materials for the Education of Poor Children.</h3>
+          <p>Share your unique link via Facebook, Twitter, Reddit, Google+, LinkedIn  and win exciting prizes.</p>
+          
+          <div class="well" style='background-color:white;'>
+
+          	{{ ref_url }}
+          </div>
+
+          Share</br>
+
+          	<a href="https://www.facebook.com/sharer/sharer.php?u={{ ref_url }}" target="_blank">
+          	<i class="fa fa-facebook-square		fa-3x" style="color: #3b5998"></i>
+          	</a>
+
+          	<a href="https://twitter.com/home?status=Donate%20your%20Old%20books%20and%20Study%20Materials%20for%20the%20Education%20of%20Poor%20Children. {{ ref_url }}" target="_blank">
+          	<i class="fa fa-twitter-square		fa-3x" style="color: #4099FF"></i>
+          	</a>
+
+          	<a href="http://www.reddit.com/submit?url={{ ref_url }}&title=Donate%20your%20Old%20books%20and%20Study%20Materials%20for%20the%20Education%20of%20Poor%20Children." target="_blank">
+          	<i class="fa fa-reddit-square		fa-3x" style="color: #900020"></i>
+          	</a>
+
+          	<a href='https://plus.google.com/share?url={{ ref_url }}', target="_blank">
+          	<i class="fa fa-google-plus-square	fa-3x" style="color: #D34836"></i>
+          	</a>
+
+          	<a href="https://www.linkedin.com/shareArticle?mini=false&url={{ref_url}}&title=Donate%20your%20Old%20books%20and%20Study%20Materials%20for%20the%20Education%20of%20Poor%20Children.&summary=Donate%20your%20Old%20books%20and%20Study%20Materials%20for%20the%20Education%20of%20Poor%20Children.&source={{ref_url}}" target="_blank">
+          	<i class="fa fa-linkedin-square		fa-3x" style="color: #007BB6"></i>
+          	</a>
+        </div>
+
+        <div class='col-md-5 pull-left' >
+          <img src = "{% static 'img/Donate.jpg' %}" class = 'img-responsive img-rounded'>
+        </div>
+        </div>
+      </div>
+    </div>
+
+<div class="container" style="text-align:center">
+</hr>
+
+Your Number of friends : {{ count }}<br/>
+<div class="row">
+	<div class="col-sm-3">
+	<h3>5 Joined</h3>
+		<div class="progress">
+  			<div class="progress-bar" id= "count5" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+    		0%
+  			</div>
+		</div>
+		<h4>Reward Name</h4>
+		<img src="">
+		<hr/>
+		<span style="text-align:left !important;">
+		<h5>Reward Includes:</h5>
+		<ul>
+			<li>Certificate of Appreciation</li>
+			<!-- <li>Reward 2</li>
+			<li>Reward 3</li> -->
+		</ul>
+		</span>
+		<hr/>
+	</div>
+	<div class="col-sm-3">
+	<h3>10 Joined</h3>
+		<div class="progress">
+  			<div class="progress-bar" id= "count10" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+    		0%
+  			</div>
+		</div>
+		<h4>Reward Name</h4>
+		<img src="">
+		<hr/>
+		<span style="text-align:left !important;">
+		<h5>Reward Includes:</h5>
+		<ul>
+			<li>Certification of Appreciation</li>
+			<li>Being Human Cap</li>
+			<!-- <li>Reward 3</li> -->
+		</ul>
+		</span>
+		<hr/>
+	</div>
+	<div class="col-sm-3">
+	<h3>20 Joined</h3>
+		<div class="progress">
+  			<div class="progress-bar" id= "count20" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+    		0%
+  			</div>
+		</div>
+		<h4>Reward Name</h4>
+		<img src="">
+		<hr/>
+		<span style="text-align:left !important;">
+		<h5>Reward Includes:</h5>
+		<ul>
+			<li>Certificate of Appreciation</li>
+			<li>Being Human T-Shirt</li>
+		</ul>
+		</span>
+		<hr/>
+	</div>
+	<div class="col-sm-3">
+	<h3>30 Joined</h3>
+		<div class="progress">
+  			<div class="progress-bar" id= "count30" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+    		0%
+  			</div>
+		</div>
+		<h4>Reward Name</h4>
+		<img src="">
+		<hr/>
+		<span style="text-align:left !important;">
+		<h5>Reward Includes:</h5>
+		<ul>
+			<li>Certificate of Appreciation</li>
+			<li>Being Human T-Shirt</li>
+			<li>Chance to meet Salman Khan</li>
+		</ul>
+		</span>
+		<hr/>
+	</div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <div class='col-sm-6'>
+          <h1>Join the Revolution!</h1>
+          <h2>Donate Books for Education of Children.</h2>
+          <blockquote>“We make a living by what we get. We make a life by what we give.”</blockquote>
+          <blockquote id="author">― Winston S. Churchill</blockquote>
+          <!-- <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p> -->
+        </div>
+
+        <div class='col-sm-6'>
+          <!-- <img src = "{% static 'img/Books.jpg' %}" class = 'img-responsive img-rounded'> -->
+          <!-- 16:9 aspect ratio -->
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/uqz3LsUDCfY" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        </div>
+      </div>
+    </div>
+
+<div class="container" style="text-align:center">
+</hr>
+<h1>Register Yourself<br></h1>
+
+<form method = "POST" action = ""> {% csrf_token %}
+{{ form.as_p }} <!--form as paragraph-->
+
+<input type = 'submit' value = 'Register' class = 'btn' /> <!-- class btn is from bootstrap-->
+
+</div>
+
+</form>
+
+
+<div class= "container" style="text-align:center">
+  <h4>{{ number}} people have already joined</h4>
+</div>
+
+<!-- Leaderboard  -->
+<h1 class="" style="text-align: center" id="leaderboard">Members</h1>
+<div class="jumbotron" id="leaderboard">
+      <div class="col-sm-6 pull-left">
+      <h3 class="well" style="text-align: center">Email-id</h3>
+        <div class="container" style="text-align:left">
+            <ul>
+                {% for query in queryset %}
+                    <!-- <h5>{{ i.email }}</h5> -->
+                    <h5 class="well well-sm" id="members"><strong>{{query}}</strong></h5>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+      <div class="col-sm-6 pull-right">
+      <h3 class="well" style="text-align: center">Number of Shares</h3>
+        <div class="container" style="text-align:left">
+            <ul>
+                {% for count in counter %}
+                    <!-- <h5>{{ i.email }}</h5> -->
+                    <h5 class="well  well-sm" id="members"><strong>{{count}}</strong> </h5>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Leaderboard finish -->
+{% endblock %}
